@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const Item: React.FunctionComponent = () => {
-    return(
-        <div>
-            <h1>Item</h1>
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1>Item</h1>
+    </div>
+  );
+};
 
 export default Item;
