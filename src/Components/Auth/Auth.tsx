@@ -3,6 +3,7 @@ import React from "react";
 import Signup from "./Signup";
 import Login from "./Login";
 
+
 type AuthProps = {
   updateToken: (newToken: string) => any;
 };
@@ -16,6 +17,10 @@ export default class Auth extends React.Component<AuthProps, AuthState> {
         <Login updateToken={this.props.updateToken} />
 
         <Signup updateToken={this.props.updateToken} />
+
+        
+       
+
       </div>
     );
   }

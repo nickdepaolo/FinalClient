@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, NavbarBrand, Nav, NavItem } from "reactstrap";
+import { Navbar, NavbarBrand} from "reactstrap";
 import { Link } from "react-router-dom";
 
 const Sitebar: React.FunctionComponent = () => {
