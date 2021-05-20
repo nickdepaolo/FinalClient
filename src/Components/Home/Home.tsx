@@ -1,7 +1,7 @@
 import React from 'react';
 
 type HomeProps = {
-    sessionToken: string | null
+    // sessionToken: string | null
 }
 
 export default class Home extends React.Component <HomeProps,{}> {

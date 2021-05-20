@@ -32,8 +32,11 @@ export default class Login extends React.Component< AuthProps, AuthState > {
             } )
         } ).then(
             ( response ) => response.json()
+            
         ).then( ( data ) => {
-            this.props.updateToken( data.sessionToken )
+            this.props.updateToken( data.token )
+            console.log(data.user);
+            
             
         } )
     }
@@ -64,8 +67,10 @@ export default class Login extends React.Component< AuthProps, AuthState > {
                     <FormGroup>
                         <Input onChange={ (e) => this.setState( { password: e.target.value } ) } name="password"  type="password"/>
                     </FormGroup>
+
+                    <br/>
           
-                    <Button type='submit'>Login</Button>
+                    <Button type='submit' >Login</Button>
                 </Form>
 
             </div>

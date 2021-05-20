@@ -5,25 +5,27 @@ import { Link } from 'react-router-dom';
 
 const Sitebar: React.FunctionComponent = () => {
 
+    
+
         return(
             
             <Navbar expand="md" className="App-header">
 
                 <NavbarBrand href="/">
-                    Home
+                    MainLogo
                 </NavbarBrand>
 
-                <Nav>
+                <NavbarBrand>
+                    <Link to="/item">Item</Link>
+                </NavbarBrand>
 
-                    <NavItem>
-                        <Link to="/item">Item</Link>
-                    </NavItem>
+                <NavbarBrand>
+                    {localStorage.getItem( 'token' ) ? <Link to = '/home'>My Store</Link> : <Link to = '/auth'>Login or Signup</Link>}
+                </NavbarBrand>
 
-                    <NavItem>
-                        <Link to = '/auth'>Login or Signup</Link>
-                    </NavItem>
-
-                </Nav>
+                <NavbarBrand>
+                    {localStorage.getItem( 'token' ) ? <Link to = '/logout'>Logout</Link> : '' }
+                </NavbarBrand>
 
             </Navbar>
         )

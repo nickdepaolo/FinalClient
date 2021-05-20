@@ -12,7 +12,7 @@ type AuthState = {
     email: string,
     password: string,
     userName: string,
-    isMaker: boolean,
+    maker: boolean,
     storeId: number,
     admin: boolean
 
@@ -28,7 +28,7 @@ export default class Signup extends React.Component< AuthProps, AuthState > {
             email: '',
             password: '',
             userName: '',
-            isMaker: false,
+            maker: false,
             storeId: 0,
             admin: false
 
@@ -44,7 +44,7 @@ export default class Signup extends React.Component< AuthProps, AuthState > {
         } else {        
             fetch( `http://localhost:3586/user/register`, {
             method: "POST",
-            body: JSON.stringify( { user: { email: this.state.email, password: this.state.password } } ),
+            body: JSON.stringify( { user: { userName:this.state.userName, password: this.state.password, email: this.state.email, maker: this.state.maker,  admin: this.state.admin } } ),
             headers: new Headers( {
                 'Content-Type': 'application/json'
             } )
@@ -57,7 +57,16 @@ export default class Signup extends React.Component< AuthProps, AuthState > {
         }
     }
 
+    swapCheck = (e: { preventDefault: () => void; }) => {
+        e.preventDefault()
+        let x = this.state.maker;
+        x === true ? this.setState({maker: false}) : this.setState({maker: true});
+        console.log(this.state.maker);
+        
+    }
+
     render() {
+
         return(
 
             <div>
@@ -98,7 +107,7 @@ export default class Signup extends React.Component< AuthProps, AuthState > {
 
                     <FormGroup>
                         <Label>Are you starting a store? </Label>
-                        <Input onChange={ (e) => this.setState( { isMaker: true} ) } type='checkbox' />
+                        <Input onChange={ this.swapCheck } type='checkbox' />
                     </FormGroup>
 
                     <br/>
