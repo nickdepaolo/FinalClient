@@ -3,6 +3,7 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 type AuthProps = {
   updateToken: (newToken: string) => any;
+  updateId:  (newId: number) => any
 };
 
 type AuthState = {
@@ -28,8 +29,10 @@ export default class Login extends React.Component<AuthProps, AuthState> {
       })
         .then((response) => response.json())
         .then((data) => {
+            console.log(data.user.id);
+            
           this.props.updateToken(data.token);
-          console.log(data.user);
+          this.props.updateId(data.user.id);
         });
     }
   };
