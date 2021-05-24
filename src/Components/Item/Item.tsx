@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input } from "reactstrap";
+import { Button, Input, Row, Col } from "reactstrap";
 
 type ItemProps = {
   userId: number;
@@ -29,6 +29,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       editDes: "",
       itemId: 0,
       searching: false,
+    
     };
   }
   createItems = () => {
@@ -44,7 +45,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.props.sessionToken}`,
+        Authorization: `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
@@ -59,7 +60,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       body: JSON.stringify({ id: this.state.itemId }),
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.props.sessionToken}`,
+        Authorization: `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
@@ -77,7 +78,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.props.sessionToken}`,
+        Authorization: `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
@@ -86,16 +87,16 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       });
   };
 
-  updateItemName = () => {
+  updateItemName = (id: number) => {
     fetch(`http://localhost:3586/item/update`, {
       method: "PUT",
       body: JSON.stringify({
-        id: this.state.itemId,
+        id: id,
         itemName: this.state.editName,
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.props.sessionToken}`,
+        Authorization: `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
@@ -114,7 +115,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.props.sessionToken}`,
+        Authorization: `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
@@ -129,7 +130,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
     return (
       <div>
         <h3>Add item</h3>
-        <br />
+       
         <h5>Item Name</h5>
         <Input onChange={(e) => this.setState({ itemName: e.target.value })} />
         <br />
@@ -141,38 +142,55 @@ export default class Item extends React.Component<ItemProps, ItemState> {
         <br />
         <Button onClick={this.createItems}>Add</Button>
         <br />
-        {this.state.searching
-          ? this.state.itemContain.map(
-              (itemContain: { itemName: string; description: string }) => {
-                return (
-                  <div>
-                    <h2>{itemContain.itemName}</h2>
-                    <h4>{itemContain.description}</h4>
+        <Row>
+          <Col>
+            {this.state.searching
+              ? this.state.itemContain.map(
+                  (
+                    itemContain: { itemName: string; description: string; id: number },
+                    itemId: number
+                  ) => {
+                    return (
+                      <div key={itemId}>
+                        <h2>{itemContain.itemName}</h2>
+                        <h4>{itemContain.description}</h4>
 
-                    <div>
-                      <Input
-                        onChange={(e) =>
-                          this.setState({ editName: e.target.value })
-                        }
-                      />
-                      <br />
-                      <Button>Change Item Name</Button>
-                    </div>
-
-                    <div>
-                      <Input
-                        onChange={(e) =>
-                          this.setState({ editDes: e.target.value })
-                        }
-                      />
-                      <br />
-                      <Button>Change Item Description</Button>
-                    </div>
-                  </div>
-                );
-              }
-            )
-          : ""}
+                        <div>
+                          <Input
+                            onChange={(e) =>
+                              this.setState({ editName: e.target.value })
+                            }
+                          />
+                          <br/>
+                        
+                          <Button onClick={() => this.updateItemName(itemContain.id)}  >
+                            Change Item Name
+                          </Button>
+                        </div>
+                        <br/>
+                  
+                        <div>
+                          <Input
+                            onChange={(e) =>
+                              this.setState({ editDes: e.target.value })
+                            }
+                          />
+                         
+                          <br/>
+                          <Button onClick={this.updateItemDes}>
+                            Change Item Description
+                          </Button>
+                          <br />
+                          <br/>
+                          <Button onClick={this.deleteItems}>Delete</Button>
+                        </div>
+                      </div>
+                    );
+                  }
+                )
+              : ""}
+          </Col>
+        </Row>
       </div>
     );
   }

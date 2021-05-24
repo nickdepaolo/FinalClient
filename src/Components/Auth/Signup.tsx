@@ -3,8 +3,8 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 type AuthProps = {
   updateToken: (newToken: string) => any;
-  updateId:  (newId: number) => any
-  makerCheck: (maker: boolean) =>  any;
+  updateId: (newId: number) => any;
+  makerCheck: (maker: boolean) => any;
 };
 
 type AuthState = {
@@ -55,13 +55,12 @@ export default class Signup extends React.Component<AuthProps, AuthState> {
         .then((data) => {
           this.props.updateToken(data.sessionToken);
           this.props.updateId(data.user.id);
-          this.props.makerCheck(this.state.maker)
+          this.props.makerCheck(this.state.maker);
         });
     }
   };
 
-  swapCheck = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  swapCheck = () => {
     let x = this.state.maker;
     x === true
       ? this.setState({ maker: false })
