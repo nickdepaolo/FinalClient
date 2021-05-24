@@ -4,10 +4,11 @@
 }
 
 body {
+  background-color: rgba(0, 0, 0, 0.219);
   }
 
 .App-header {
-  background-color: #080808a6;
+  background-color: #08080880;
   min-height: 10vh;
   display: flex;
   flex-direction: row;
@@ -25,7 +26,7 @@ body {
 }
 
 .footer {
-  background-color: tomato;
+  background-color:#08080880;
   
 }
   

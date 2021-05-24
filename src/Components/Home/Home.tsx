@@ -41,8 +41,11 @@ export default class Home extends React.Component<HomeProps, HomeState> {
       .then((data) => {
         this.setState({storeArray: data});
         this.setState({storeId: data.id})
+        this.setState({contactInfo: data.contactInfo})
         console.log(  data );
         console.log(this.state.storeId);
+        console.log(this.state.contactInfo);
+        
       });
   };
 
@@ -55,7 +58,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 
   createSwap = () => {
   return this.state.storeArray === null ? (<StoreSetup sessionToken={this.props.sessionToken} userId={this.props.userId}/>) : 
-       (<Item userId={this.props.userId} storeId={this.state.storeId}/>)
+       (<Item userId={this.props.userId} storeId={this.state.storeId} sessionToken={this.props.sessionToken}/>)
   }
 
 
@@ -63,6 +66,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
   render() {
     return (
       <div>
+        <h1>{this.state.contactInfo}</h1>
         <Switch>
           <Route exact path = '/home' component = {this.createSwap} />
         </Switch>

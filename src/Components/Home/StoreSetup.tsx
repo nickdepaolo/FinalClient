@@ -29,7 +29,7 @@ export default class CreateStore extends React.Component<
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.props.sessionToken}`,
+        "Authorization": `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
