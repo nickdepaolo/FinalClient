@@ -4,6 +4,8 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 type AuthProps = {
   updateToken: (newToken: string) => any;
   updateId:  (newId: number) => any
+  makerCheck: (maker: boolean) =>  any;
+ 
 };
 
 type AuthState = {
@@ -29,13 +31,19 @@ export default class Login extends React.Component<AuthProps, AuthState> {
       })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data.user.id);
+            console.log(data);
             
           this.props.updateToken(data.token);
           this.props.updateId(data.user.id);
+          console.log(data.user.maker);
+          
+          this.props.makerCheck(data.user.maker)
+          
         });
     }
   };
+
+
 
   render() {
     return (

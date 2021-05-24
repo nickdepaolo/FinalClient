@@ -2,11 +2,13 @@ import React from "react";
 import { Button } from "reactstrap";
 
 type AuthProps = {
-  updateLogout: (newRoute: string) => any;
+  updateLogout: (newRoute: string) => any
+  sessionToken: string | null
 };
 
 export default class Logout extends React.Component<AuthProps, {}> {
   removeToken = () => {
+    console.log(this.props.sessionToken)
     localStorage.removeItem("token");
     this.props.updateLogout("Splash");
   };

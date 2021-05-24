@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default class Splash extends React.Component <{},{}> {
+type SplashProps = {
+
+
+}
+
+export default class Splash extends React.Component <SplashProps,{}> {
 
 
     render() {

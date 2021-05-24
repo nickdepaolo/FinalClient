@@ -1,6 +1,7 @@
 import React from "react";
 import StoreSetup from './StoreSetup'
 import Item from '../Item/Item'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 type HomeProps = {
   sessionToken: string | null;
@@ -9,7 +10,9 @@ type HomeProps = {
 
 type HomeState = {
   contactInfo: string;
-  id: number
+  id: number;
+  storeArray: any;
+  storeId: number;
 };
 
 export default class Home extends React.Component<HomeProps, HomeState> {
@@ -19,7 +22,9 @@ export default class Home extends React.Component<HomeProps, HomeState> {
     
         this.state = {
             contactInfo: '',
-            id: 0
+            id: 0,
+            storeArray: '',
+            storeId: 0
         };
       }
         
@@ -34,26 +39,33 @@ export default class Home extends React.Component<HomeProps, HomeState> {
     })
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ contactInfo: data.contactInfo});
-        this.setState({})
-        console.log( data );
+        this.setState({storeArray: data});
+        this.setState({storeId: data.id})
+        console.log(  data );
+        console.log(this.state.storeId);
       });
   };
 
   componentDidMount = () => {
     this.getStore();
     this.setState({id: this.props.userId})
-    console.log(this.state.id);
+    console.log(this.state.storeArray);
+    this.createSwap()
   };
+
+  createSwap = () => {
+  return this.state.storeArray === null ? (<StoreSetup sessionToken={this.props.sessionToken} userId={this.props.userId}/>) : 
+       (<Item userId={this.props.userId} storeId={this.state.storeId}/>)
+  }
 
 
 
   render() {
     return (
       <div>
-        <h1>Home Page</h1>
-        {this.state.contactInfo? <StoreSetup sessionToken={this.props.sessionToken} userId={this.props.userId}/> : 
-       <Item />}
+        <Switch>
+          <Route exact path = '/home' component = {this.createSwap} />
+        </Switch>
       </div>
     );
   }

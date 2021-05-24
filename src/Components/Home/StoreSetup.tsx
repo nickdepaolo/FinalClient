@@ -35,6 +35,7 @@ export default class CreateStore extends React.Component<
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        
       });
   };
   render() {

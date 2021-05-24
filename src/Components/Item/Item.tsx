@@ -1,11 +1,25 @@
 import React from "react";
 
-const Item: React.FunctionComponent = () => {
-  return (
-    <div>
-      <h1>Item</h1>
-    </div>
-  );
+type ItemProps = {
+  userId: number,
+  storeId: number
 };
 
-export default Item;
+type ItemState = {};
+
+export default class Item extends React.Component<ItemProps, ItemState> {
+  createItems = () => {
+    fetch(`http://localhost:3586/items/`, {
+      method: 'POST',
+      body: JSON.stringify({
+
+      })
+    })
+  }  
+  
+  
+  render() {
+    return <h1>555</h1>;
+  }
+}
+

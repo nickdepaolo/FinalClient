@@ -3,6 +3,8 @@
   
 }
 
+body {
+  }
 
 .App-header {
   background-color: #080808a6;
@@ -24,6 +26,7 @@
 
 .footer {
   background-color: tomato;
+  
 }
   
 
