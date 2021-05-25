@@ -9,6 +9,7 @@ type AuthProps = {
   updateId:  (newId: number) => any;
   makerCheck: (maker: boolean) =>  any;
   sessionToken: string | null;
+  updateStoreId: (storeId: number) => any
 };
 
 type AuthState = {};
@@ -17,9 +18,9 @@ export default class Auth extends React.Component<AuthProps, AuthState> {
   render() {
     return (
       <div>
-        <Login  updateToken={this.props.updateToken} updateId={this.props.updateId} makerCheck={this.props.makerCheck} />
+        <Login updateStoreId={this.props.updateStoreId} updateToken={this.props.updateToken} updateId={this.props.updateId} makerCheck={this.props.makerCheck} />
 
-        <Signup updateToken={this.props.updateToken} updateId={this.props.updateId} makerCheck={this.props.makerCheck} />
+        <Signup updateStoreId={this.props.updateStoreId} updateToken={this.props.updateToken} updateId={this.props.updateId} makerCheck={this.props.makerCheck} />
 
         
        

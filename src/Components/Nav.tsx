@@ -10,9 +10,9 @@ type NavProps = {
 export default class Sitebar extends React.Component <NavProps,{}>{
 
   componentDidMount(){
-    let token = localStorage.getItem("token")
+    // let token = localStorage.getItem("token")
     console.log('maker', this.props.maker)
-    console.log( 'token',localStorage.getItem("token"))
+    console.log( 'token', localStorage.getItem("token"))
 
   }
 
@@ -25,10 +25,18 @@ export default class Sitebar extends React.Component <NavProps,{}>{
         <img src={Logo} alt="" />
       </NavbarBrand>
       </Link>
-      
+
       <NavbarBrand>
         {this.props.maker === true  ? (
           <Link to="/home">My Store</Link>
+        ) : (
+          ''
+        )}
+      </NavbarBrand>
+
+      <NavbarBrand>
+      {this.props.maker === true  ? (
+          <Link to="/item">My Items</Link>
         ) : (
           ''
         )}

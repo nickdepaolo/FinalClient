@@ -7,6 +7,8 @@ import Splash from "./Splash/Splash";
 import Home from "./Home/Home";
 import Logout from "./Auth/Logout";
 import Footer from "./Footer";
+import StoreSetup from '../Components/Home/StoreSetup'
+
 
 type MainProps = {};
 
@@ -15,7 +17,8 @@ type MainState = {
   updateLogout: string | null;
   id: number;
   maker: boolean,
-  truth: boolean
+  truth: boolean,
+  storeId: number
 };
 
 export default class Main extends React.Component<MainProps, MainState> {
@@ -27,7 +30,8 @@ export default class Main extends React.Component<MainProps, MainState> {
       updateLogout: "",
       id: 0,
       maker: false,
-      truth: false
+      truth: false,
+      storeId: 0
     };
   }
 
@@ -64,7 +68,7 @@ export default class Main extends React.Component<MainProps, MainState> {
 
     return token === localStorage.getItem("token") ? (
      <Splash />) : 
-      (<Auth sessionToken={this.state.sessionToken} updateToken={this.updateToken} updateId={this.updateId} makerCheck={this.makerCheck} />);
+      (<Auth updateStoreId={this.updateStoreId} sessionToken={this.state.sessionToken} updateToken={this.updateToken} updateId={this.updateId} makerCheck={this.makerCheck} />);
   };
 
 
@@ -90,12 +94,24 @@ export default class Main extends React.Component<MainProps, MainState> {
     
   }
 
+  updateStoreId = (storeId: number) => {
+    this.setState({storeId: storeId})
+  }
+
  makerView = () => { 
-   return this.state.maker === true? (<Home sessionToken={this.state.sessionToken} userId={this.state.id} />)
+   return this.state.maker === true? (this.createSwap())
    : (<Splash />)
  }
  
+ itemView = () => {
+   return this.state.maker === true? (<Item userId={this.state.id} storeId={this.state.storeId} sessionToken={this.state.sessionToken}/>)
+   : ''
+ }
 
+ createSwap() {
+   return this.state.storeId > 0 ? (<Home sessionToken={this.state.sessionToken} userId={this.state.id} />)
+   : (<StoreSetup sessionToken={this.state.sessionToken} userId={this.state.id}/>)
+ }
 
   render() {
     return (
@@ -110,7 +126,8 @@ export default class Main extends React.Component<MainProps, MainState> {
                 <Route exact path="/home" component={this.makerView} />
                 <Route exact path="/" component={Splash} />
               </Switch>
-              <Footer />
+              { this.state.maker === true? (<Item userId={this.state.id} storeId={this.state.storeId} sessionToken={this.state.sessionToken}/>): ''}             
+               <Footer />
             </div>
           </div>
         </Router>

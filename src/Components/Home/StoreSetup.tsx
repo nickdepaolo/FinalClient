@@ -19,6 +19,7 @@ export default class CreateStore extends React.Component<
  {
 
   newStore = () => {
+   
     fetch(`http://localhost:3586/store/`, {
       method: "POST",
       body: JSON.stringify({

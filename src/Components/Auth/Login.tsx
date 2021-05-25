@@ -5,12 +5,14 @@ type AuthProps = {
   updateToken: (newToken: string) => any;
   updateId:  (newId: number) => any
   makerCheck: (maker: boolean) =>  any;
- 
+  updateStoreId: (storeId: number) => any
 };
 
 type AuthState = {
   email: string;
   password: string;
+  storeId: number
+  sessionToken: number
 };
 
 export default class Login extends React.Component<AuthProps, AuthState> {
@@ -34,16 +36,44 @@ export default class Login extends React.Component<AuthProps, AuthState> {
             console.log(data);
             
           this.props.updateToken(data.token);
+          this.setState({sessionToken: data.token})
           this.props.updateId(data.user.id);
           console.log(data.user.maker);
           
           this.props.makerCheck(data.user.maker)
+          this.checkToken()
           
-        });
+        })
     }
   };
 
+  checkToken() {
+    if(this.state.sessionToken > 1){
+      this.getStore()
+    }
+  }
 
+  getStore = () => {
+    console.log('fetch');
+    console.log(this.state.sessionToken);
+    
+    fetch(`http://localhost:3586/store/mystore`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${ this.state.sessionToken }`,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+      
+        this.setState({storeId: data.id})
+        this.props.updateStoreId(data.id)
+        console.log(  data );
+        console.log(this.state.storeId);
+       
+      });
+  };
 
   render() {
     return (

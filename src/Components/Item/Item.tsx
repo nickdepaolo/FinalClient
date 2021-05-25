@@ -15,6 +15,8 @@ type ItemState = {
   editDes: string;
   itemId: number;
   searching: boolean;
+  storeId: number;
+  rerender: number
 };
 
 export default class Item extends React.Component<ItemProps, ItemState> {
@@ -29,10 +31,15 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       editDes: "",
       itemId: 0,
       searching: false,
-    
+      storeId: 0,
+      rerender: 0
     };
   }
+
   createItems = () => {
+    console.log(this.props);
+
+    
     fetch(`http://localhost:3586/item/`, {
       method: "POST",
       body: JSON.stringify({
@@ -40,7 +47,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
           itemName: this.state.itemName,
           description: this.state.description,
           userId: this.props.userId,
-          storeId: this.props.storeId,
+          storeId: this.state.storeId,
         },
       }),
       headers: new Headers({
@@ -51,57 +58,79 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        this.fetchAgain();
       });
   };
 
-  deleteItems = () => {
+  deleteItems = (id: number) => {
     fetch(`http://localhost:3586/item/delete`, {
       method: "DELETE",
-      body: JSON.stringify({ id: this.state.itemId }),
+      body: JSON.stringify({ item:  {
+        itemId: id
+      } }),
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.props.sessionToken}`,
+        "Authorization": `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        this.fetchAgain();
       });
   };
 
-  updateItemDes = () => {
-    fetch(`http://localhost:3586/item/update`, {
+  updateItemDes = (id: number) => {
+    fetch(`http://localhost:3586/item/update2`, {
       method: "PUT",
       body: JSON.stringify({
-        id: this.state.itemId,
-        description: this.state.editDes,
+        item: {itemId: id,
+        description: this.state.editDes}
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.props.sessionToken}`,
+        "Authorization": `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        this.fetchAgain();
       });
   };
+
+  fetchAgain(){
+    fetch(`http://localhost:3586/store/mystore`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.props.sessionToken}`,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({ storeId: data.id });
+        console.log(this.state.storeId);
+      });
+  }
 
   updateItemName = (id: number) => {
     fetch(`http://localhost:3586/item/update`, {
       method: "PUT",
       body: JSON.stringify({
-        id: id,
-        itemName: this.state.editName,
+        item: {itemId: id, 
+        itemName: this.state.editName}
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.props.sessionToken}`,
+        "Authorization": `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        this.fetchAgain();
       });
   };
 
@@ -111,11 +140,29 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   }
 
   componentDidMount() {
+    console.log("fetch");
+    
+    fetch(`http://localhost:3586/store/mystore`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${this.props.sessionToken}`,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({ storeId: data.id });
+        console.log(this.state.storeId);
+      });
+  }
+
+  checkItems = () => {
     fetch(`http://localhost:3586/item/itembyid`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.props.sessionToken}`,
+        "Authorization": `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
@@ -123,14 +170,15 @@ export default class Item extends React.Component<ItemProps, ItemState> {
         console.log(data);
         this.setState({ itemContain: data });
         this.stateSetter();
+        this.fetchAgain();
       });
-  }
+  };
 
   render() {
     return (
       <div>
         <h3>Add item</h3>
-       
+
         <h5>Item Name</h5>
         <Input onChange={(e) => this.setState({ itemName: e.target.value })} />
         <br />
@@ -142,12 +190,17 @@ export default class Item extends React.Component<ItemProps, ItemState> {
         <br />
         <Button onClick={this.createItems}>Add</Button>
         <br />
+        <Button onClick={this.checkItems}>Get My Items</Button>
         <Row>
           <Col>
             {this.state.searching
               ? this.state.itemContain.map(
                   (
-                    itemContain: { itemName: string; description: string; id: number },
+                    itemContain: {
+                      itemName: string;
+                      description: string;
+                      id: number;
+                    },
                     itemId: number
                   ) => {
                     return (
@@ -161,28 +214,32 @@ export default class Item extends React.Component<ItemProps, ItemState> {
                               this.setState({ editName: e.target.value })
                             }
                           />
-                          <br/>
-                        
-                          <Button onClick={() => this.updateItemName(itemContain.id)}  >
+                          <br />
+
+                          <Button
+                            onClick={() => this.updateItemName(itemContain.id)}
+                          >
                             Change Item Name
                           </Button>
                         </div>
-                        <br/>
-                  
+                        <br />
+
                         <div>
                           <Input
                             onChange={(e) =>
                               this.setState({ editDes: e.target.value })
                             }
                           />
-                         
-                          <br/>
-                          <Button onClick={this.updateItemDes}>
+
+                          <br />
+                          <Button 
+                          onClick={() => this.updateItemDes(itemContain.id)}
+                          >
                             Change Item Description
                           </Button>
                           <br />
-                          <br/>
-                          <Button onClick={this.deleteItems}>Delete</Button>
+                          <br />
+                          <Button onClick={() =>this.deleteItems(itemContain.id)}>Delete</Button>
                         </div>
                       </div>
                     );

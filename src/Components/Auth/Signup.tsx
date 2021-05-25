@@ -5,6 +5,7 @@ type AuthProps = {
   updateToken: (newToken: string) => any;
   updateId: (newId: number) => any;
   makerCheck: (maker: boolean) => any;
+  updateStoreId: (storeId: number) => any
 };
 
 type AuthState = {
@@ -54,7 +55,7 @@ export default class Signup extends React.Component<AuthProps, AuthState> {
         .then((response) => response.json())
         .then((data) => {
           this.props.updateToken(data.sessionToken);
-          this.props.updateId(data.user.id);
+          // this.props.updateId(data.user.id);
           this.props.makerCheck(this.state.maker);
         });
     }
