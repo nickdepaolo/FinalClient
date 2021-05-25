@@ -65,7 +65,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   };
 
   deleteItems = (id: number) => {
-    fetch(`${process.env.REACT_APP_API_SERVER_URLL}/item/delete`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/item/delete`, {
       method: "DELETE",
       body: JSON.stringify({ item:  {
         itemId: id
@@ -83,7 +83,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   };
 
   updateItemDes = (id: number) => {
-    fetch(`${process.env.REACT_APP_API_SERVER_URLL}/item/update2`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/item/update2`, {
       method: "PUT",
       body: JSON.stringify({
         item: {itemId: id,
@@ -102,7 +102,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   };
 
   fetchAgain(){
-    fetch(`${process.env.REACT_APP_API_SERVER_URLL}/store/mystore`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/store/mystore`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -118,7 +118,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   }
 
   updateItemName = (id: number) => {
-    fetch(`${process.env.REACT_APP_API_SERVER_URLL}/item/update`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/item/update`, {
       method: "PUT",
       body: JSON.stringify({
         item: {itemId: id, 
