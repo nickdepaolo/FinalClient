@@ -38,6 +38,8 @@ export default class Item extends React.Component<ItemProps, ItemState> {
 
   createItems = () => {
     console.log(this.props);
+    console.log(this.state);
+    
 
     
     fetch(`${process.env.REACT_APP_API_SERVER_URL}/item/`, {
@@ -143,7 +145,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   componentDidMount() {
     console.log("fetch");
     
-    fetch(`${process.env.REACT_APP_API_SERVER_URLL}/store/mystore`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/store/mystore`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -159,7 +161,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   }
 
   checkItems = () => {
-    fetch(`${process.env.REACT_APP_API_SERVER_URLL}/item/itembyid`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/item/itembyid`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
