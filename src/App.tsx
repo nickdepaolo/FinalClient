@@ -9,6 +9,7 @@ import Logout from "../src/Components/Auth/Logout";
 import Footer from "../src/Components/Footer";
 import Home from "../src/Components/Home/Home";
 import StoreSetup from "../src/Components/Home/StoreSetup"
+import APIURL from '../src/enviroment'
 
 
 type MainProps = {};

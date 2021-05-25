@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Input, Row, Col } from "reactstrap";
+import APIURL from '../../enviroment'
 
 type ItemProps = {
   userId: number;
@@ -40,7 +41,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
     console.log(this.props);
 
     
-    fetch(`http://localhost:3586/item/`, {
+    fetch(`${APIURL}/item/`, {
       method: "POST",
       body: JSON.stringify({
         item: {
@@ -63,7 +64,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   };
 
   deleteItems = (id: number) => {
-    fetch(`http://localhost:3586/item/delete`, {
+    fetch(`${APIURL}/item/delete`, {
       method: "DELETE",
       body: JSON.stringify({ item:  {
         itemId: id
@@ -81,7 +82,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   };
 
   updateItemDes = (id: number) => {
-    fetch(`http://localhost:3586/item/update2`, {
+    fetch(`${APIURL}/item/update2`, {
       method: "PUT",
       body: JSON.stringify({
         item: {itemId: id,
@@ -100,7 +101,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   };
 
   fetchAgain(){
-    fetch(`http://localhost:3586/store/mystore`, {
+    fetch(`${APIURL}/store/mystore`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -116,7 +117,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   }
 
   updateItemName = (id: number) => {
-    fetch(`http://localhost:3586/item/update`, {
+    fetch(`${APIURL}/item/update`, {
       method: "PUT",
       body: JSON.stringify({
         item: {itemId: id, 
@@ -143,7 +144,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   componentDidMount() {
     console.log("fetch");
     
-    fetch(`http://localhost:3586/store/mystore`, {
+    fetch(`${APIURL}/store/mystore`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -159,7 +160,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
   }
 
   checkItems = () => {
-    fetch(`http://localhost:3586/item/itembyid`, {
+    fetch(`${APIURL}/item/itembyid`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",

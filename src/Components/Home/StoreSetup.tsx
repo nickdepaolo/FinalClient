@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Input } from "reactstrap";
+import APIURL from '../../enviroment'
 
 type CreateProps = {
   sessionToken: string | null;
@@ -22,7 +23,7 @@ export default class CreateStore extends React.Component<
     e.preventDefault()
     console.log(this.props.sessionToken);
     
-    fetch(`http://localhost:3586/store/`, {
+    fetch(`${APIURL}/store/`, {
       method: "POST",
       body: JSON.stringify({
         store: {
