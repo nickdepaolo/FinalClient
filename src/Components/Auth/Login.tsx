@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import APIURL from '../../enviroment'
 
 
 type AuthProps = {
@@ -26,7 +25,7 @@ export default class Login extends React.Component<AuthProps, AuthState> {
     if (this.state.password.length < 5 || this.state.password.length > 16) {
       alert("Please enter a password between 5 and 16 characters");
     } else {
-      fetch(`${APIURL}/user/login`, {
+      fetch(`${process.env.REACT_APP_API_SERVER_URL}/user/login`, {
         method: "POST",
         body: JSON.stringify({
           user: { email: this.state.email, password: this.state.password },
@@ -63,7 +62,7 @@ export default class Login extends React.Component<AuthProps, AuthState> {
     console.log('fetch');
     console.log(this.state.sessionToken);
     
-    fetch(`${APIURL}/store/mystore`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/store/mystore`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",

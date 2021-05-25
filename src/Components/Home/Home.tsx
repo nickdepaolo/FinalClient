@@ -4,7 +4,6 @@ import Item from '../Item/Item'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Splash from '../Splash/Splash'
 import { Button, Input } from "reactstrap";
-import APIURL from '../../enviroment'
 
 type HomeProps = {
   sessionToken: string | null;
@@ -40,7 +39,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
   getStore = () => {
     console.log(this.props);
     
-    fetch(`${APIURL}/store/mystore`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/store/mystore`, {
       method: "GET",
     
       headers: new Headers({
@@ -73,7 +72,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
   changeStoreName = () => {
     console.log(this.state.storeName);
     
-    fetch(`${APIURL}/store/update`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/store/update`, {
       method: "PUT",
       body: JSON.stringify({
         store: {storeId: this.state.storeId, 
@@ -93,7 +92,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 
   deleteStoreName = () => {
     this.setState({storeName: ''})
-    fetch(`${APIURL}/store/delete`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/store/delete`, {
       method: "PUT",
       body: JSON.stringify({
         store: {storeId: this.state.storeId,
