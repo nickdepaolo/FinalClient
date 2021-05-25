@@ -52,13 +52,13 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.props.sessionToken}`,
+        "Authorization": `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        this.fetchAgain();
+        this.checkItems();
       });
   };
 
@@ -76,7 +76,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        this.fetchAgain();
+        this.checkItems();
       });
   };
 
@@ -95,7 +95,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        this.fetchAgain();
+        this.checkItems();
       });
   };
 
@@ -130,8 +130,9 @@ export default class Item extends React.Component<ItemProps, ItemState> {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        this.fetchAgain();
+        this.checkItems();
       });
+      
   };
 
   stateSetter() {
@@ -170,7 +171,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
         console.log(data);
         this.setState({ itemContain: data });
         this.stateSetter();
-        this.fetchAgain();
+        
       });
   };
 

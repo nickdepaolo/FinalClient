@@ -68,7 +68,7 @@ export default class Main extends React.Component<MainProps, MainState> {
 
     return token === localStorage.getItem("token") ? (
      <Splash />) : 
-      (<Auth updateStoreId={this.updateStoreId} sessionToken={this.state.sessionToken} updateToken={this.updateToken} updateId={this.updateId} makerCheck={this.makerCheck} />);
+      (<Auth updateStoreId={this.updateStoreId}  updateToken={this.updateToken} updateId={this.updateId} makerCheck={this.makerCheck} />);
   };
 
 
@@ -126,7 +126,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                 <Route exact path="/home" component={this.makerView} />
                 <Route exact path="/" component={Splash} />
               </Switch>
-              { this.state.maker === true? (<Item userId={this.state.id} storeId={this.state.storeId} sessionToken={this.state.sessionToken}/>): ''}             
+              {/* { this.state.maker === true? (<Item userId={this.state.id} storeId={this.state.storeId} sessionToken={this.state.sessionToken}/>): ''}              */}
                <Footer />
             </div>
           </div>

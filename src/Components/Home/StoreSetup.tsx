@@ -18,8 +18,10 @@ export default class CreateStore extends React.Component<
 >
  {
 
-  newStore = () => {
-   
+  newStore = (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+    console.log(this.props.sessionToken);
+    
     fetch(`http://localhost:3586/store/`, {
       method: "POST",
       body: JSON.stringify({
@@ -30,7 +32,7 @@ export default class CreateStore extends React.Component<
       }),
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${this.props.sessionToken}`,
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
       }),
     })
       .then((res) => res.json())

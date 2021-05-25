@@ -18,6 +18,8 @@ type AuthState = {
 export default class Login extends React.Component<AuthProps, AuthState> {
   handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    
+    
 
     if (this.state.password.length < 5 || this.state.password.length > 16) {
       alert("Please enter a password between 5 and 16 characters");
@@ -39,6 +41,8 @@ export default class Login extends React.Component<AuthProps, AuthState> {
           this.setState({sessionToken: data.token})
           this.props.updateId(data.user.id);
           console.log(data.user.maker);
+          console.log(data.user.id);
+          
           
           this.props.makerCheck(data.user.maker)
           this.checkToken()

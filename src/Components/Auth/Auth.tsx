@@ -8,7 +8,7 @@ type AuthProps = {
   updateToken: (newToken: string) => any;
   updateId:  (newId: number) => any;
   makerCheck: (maker: boolean) =>  any;
-  sessionToken: string | null;
+
   updateStoreId: (storeId: number) => any
 };
 

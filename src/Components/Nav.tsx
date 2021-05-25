@@ -10,7 +10,7 @@ type NavProps = {
 export default class Sitebar extends React.Component <NavProps,{}>{
 
   componentDidMount(){
-    // let token = localStorage.getItem("token")
+    let token = localStorage.getItem("token")
     console.log('maker', this.props.maker)
     console.log( 'token', localStorage.getItem("token"))
 

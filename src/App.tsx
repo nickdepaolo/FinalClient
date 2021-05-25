@@ -7,7 +7,9 @@ import Auth from "../src/Components/Auth/Auth";
 import Splash from "../src/Components/Splash/Splash";
 import Logout from "../src/Components/Auth/Logout";
 import Footer from "../src/Components/Footer";
-import Home from "../src/Components/Home/Home"
+import Home from "../src/Components/Home/Home";
+import StoreSetup from "../src/Components/Home/StoreSetup"
+
 
 type MainProps = {};
 
@@ -34,22 +36,10 @@ export default class Main extends React.Component<MainProps, MainState> {
     };
   }
 
-  // getToken = () => {
-  //   if (localStorage.getItem("token")) {
-  //     console.log( localStorage.getItem("token"))
-  //     this.setState({ sessionToken: localStorage.getItem("token") });
-  //   } else {
-  //     console.log('hitting else')
-  //   }
-  // };
-
   updateToken = (newToken: string) => {
     console.log(newToken);
     localStorage.setItem("token", newToken);
     this.setState({ sessionToken: newToken });
-    // setTimeout(() => {
-    //     console.log(this.state.sessionToken)
-    // }, 1000)
   };
 
   updateId = (newId: number) => {
@@ -71,20 +61,14 @@ export default class Main extends React.Component<MainProps, MainState> {
 
     return token === localStorage.getItem("token") ? (
      <Splash />) : 
-      (<Auth sessionToken={this.state.sessionToken} updateToken={this.updateToken} updateId={this.updateId} makerCheck={this.makerCheck} updateStoreId={this.updateStoreId} />);
+      (<Auth  updateToken={this.updateToken} updateId={this.updateId} makerCheck={this.makerCheck} updateStoreId={this.updateStoreId} />);
   };
 
 
   logoutView = () => {
     const token = this.state.sessionToken;
     const localToken = localStorage.getItem('token');
-    // console.log('stateToken', token);
-    // console.log('localStoraageToken', localToken);
-    // setTimeout(() => {
-    //   console.log('state token', token)
-    //   return this.setState({truth: false})
-    
-    // , 1000})
+  
     
     return token === localToken ? 
     (<Logout updateLogout={this.updateLogout} sessionToken={this.state.sessionToken}/>) : 
@@ -94,14 +78,11 @@ export default class Main extends React.Component<MainProps, MainState> {
   makerCheck = (maker: boolean) => {
     this.setState({maker: maker});
     console.log(this.state.maker);
-    
   }
 
- 
   itemPage = () => {
-    return <Item userId={this.state.id} storeId={this.state.storeId} sessionToken={this.state.sessionToken}/>
+    return (<Item userId={this.state.id} storeId={this.state.storeId} sessionToken={this.state.sessionToken}/>)
   }
-
  
  itemView = () => {
    console.log(this.state.sessionToken);
@@ -111,15 +92,21 @@ export default class Main extends React.Component<MainProps, MainState> {
  }
 
  storeView = () => {
-   return this.state.maker === true? (<Home sessionToken={this.state.sessionToken} userId={this.state.id} />)
+   return this.state.maker === true?  <Home sessionToken={this.state.sessionToken} userId={this.state.id} />
+  
    : <Splash />
  }
 
-//  componentDidMount(){
-//    this.setState({sessionToken: localStorage.getItem("token")})
-//  }
+setupView = () => {
+  return this.state.storeId > 0 ? <Home sessionToken={this.state.sessionToken} userId={this.state.id} />
+   : <StoreSetup sessionToken={this.state.sessionToken} userId={this.state.id}/>
+}
 
-
+componentDidMount() {
+ if(localStorage.getItem('token')) {
+  this.setState({sessionToken: localStorage.getItem('token')})
+ }
+}
 
   render() {
     return (

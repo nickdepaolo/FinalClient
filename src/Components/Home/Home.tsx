@@ -15,51 +15,63 @@ type HomeState = {
   id: number;
   storeArray: any;
   storeId: number;
-  storeName: string
+  storeName: string;
+  sessionToken: string;
+  userId: number;
 };
 
 export default class Home extends React.Component<HomeProps, HomeState> {
 
-    constructor(props: HomeProps) {
-        super(props);
-    
-        this.state = {
-            contactInfo: '',
-            id: 0,
-            storeArray: '',
-            storeId: 0,
-            storeName: ''
-        };
-      }
+    constructor(props: HomeProps){
+      super(props);
+
+      this.state =
+      {contactInfo: '',
+      id: 0,
+      storeArray: '',
+      storeId: 0,
+      storeName: '',
+      sessionToken: '',
+      userId: 0 }
+    }
         
 
   getStore = () => {
+    console.log(this.props);
+    
     fetch(`http://localhost:3586/store/mystore`, {
       method: "GET",
+    
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${ this.props.sessionToken }`,
+        "Authorization": `Bearer ${this.props.sessionToken}`,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        // this.setState({storeArray: data});
-        // this.setState({storeId: data.id})
-        // this.setState({contactInfo: data.contactInfo})
         console.log(  data );
-        // console.log(this.state.storeId);
-        // console.log(this.state.contactInfo);
+        this.setState({storeArray: data});
+        this.setState({storeId: data.id})
+        this.setState({contactInfo: data.contactInfo})
+        console.log(this.state.storeId);
+        console.log(this.state.contactInfo);
         
       });
   };
 
   componentDidMount = () => {
-    this.getStore();
+    console.log(this.state.storeArray);
+    
+  
+    this.getStore()
+     
     this.setState({id: this.props.userId})
     console.log(this.state.storeArray);
   };
 
   changeStoreName = () => {
+    console.log(this.state.storeName);
+    
     fetch(`http://localhost:3586/store/update`, {
       method: "PUT",
       body: JSON.stringify({
@@ -75,6 +87,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
       .then((data) => {
         console.log(data);
       });
+      this.getStore()
   };
 
   deleteStoreName = () => {
@@ -94,21 +107,27 @@ export default class Home extends React.Component<HomeProps, HomeState> {
     .then((data) => {
       console.log(data);
     });
+  
+    this.getStore()
   }
   
 
   render() {
     return (
       <div>
-        <h1>{this.state.contactInfo}</h1>
+        
+        <div>
+           <h1>{this.state.contactInfo}</h1>
         <br/>
         <h3>Change Store Name</h3>
         <Input onChange={(e) => this.setState({storeName: e.target.value })}/>
         <br/>
-        <Button onClick={this.changeStoreName} >Change Name</Button>
+        {this.state.storeName.length > 0? <Button onClick={this.changeStoreName} >Change Name</Button> : ''}
         <br/>
         <br/>
-        <Button onClick={this.deleteStoreName} >Delete Name</Button>
+        {this.state.contactInfo.length > 1? <Button onClick={this.deleteStoreName} >Delete Name</Button> : ''}
+        </div> 
+     
       </div>
     );
   }
