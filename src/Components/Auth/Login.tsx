@@ -83,7 +83,7 @@ export default class Login extends React.Component<AuthProps, AuthState> {
   render() {
     return (
       <div>
-        <h3>Login</h3>
+        <h3 className='formhead' >Login</h3>
 
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
@@ -93,8 +93,7 @@ export default class Login extends React.Component<AuthProps, AuthState> {
           <FormGroup>
             <Input
               onChange={(e) => this.setState({ email: e.target.value })}
-              name="email"
-              type="email"
+            
             />
           </FormGroup>
 
@@ -107,8 +106,7 @@ export default class Login extends React.Component<AuthProps, AuthState> {
           <FormGroup>
             <Input
               onChange={(e) => this.setState({ password: e.target.value })}
-              name="password"
-              type="password"
+              
             />
           </FormGroup>
 

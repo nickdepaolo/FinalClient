@@ -9,6 +9,8 @@ import Logout from "../src/Components/Auth/Logout";
 import Footer from "../src/Components/Footer";
 import Home from "../src/Components/Home/Home";
 import StoreSetup from "../src/Components/Home/StoreSetup"
+import { GuardProvider, GuardedRoute } from 'react-router-guards'
+
 
 
 type MainProps = {};
@@ -35,6 +37,17 @@ export default class Main extends React.Component<MainProps, MainState> {
       storeId: 0
     };
   }
+
+  requireLogin = (to: any, from: any, next: { (): void; redirect: (arg0: string) => void; }) => {
+    if (this.state.sessionToken !== localStorage.getItem('token')) {
+      if (this.state.id == null||undefined) {
+        next();
+      }
+      next.redirect('/login');
+    } else {
+      next();
+    }
+  };
 
   updateToken = (newToken: string) => {
     console.log(newToken);
@@ -118,13 +131,16 @@ componentDidMount() {
             <div>
               <Switch>
                 <Route exact path="/auth" component={this.protectedViews} />
+                <GuardProvider guards={[this.requireLogin]}>
                 <Route exact path="/logout" component={this.logoutView} />
                 <Route exact path="/item" component={this.itemPage} />
                 <Route exact path="/home" component={this.storeView} />
+                </GuardProvider>
                 <Route exact path="/" component={Splash} />
               </Switch>
-                         
-               <Footer />
+              <div className='foot'>
+              <Footer />
+              </div>
             </div>
           </div>
         </Router>

@@ -22,13 +22,13 @@ export default class Sitebar extends React.Component <NavProps,{}>{
     
       <Link to={'/'}>
       <NavbarBrand >
-        <img src={Logo} alt="" />
+        <img id='logo' src={Logo} alt="" />
       </NavbarBrand>
       </Link>
 
       <NavbarBrand>
         {this.props.maker === true  ? (
-          <Link to="/home">My Store</Link>
+          <Link className='link' to="/home">My Store</Link>
         ) : (
           ''
         )}
@@ -36,7 +36,7 @@ export default class Sitebar extends React.Component <NavProps,{}>{
 
       <NavbarBrand>
       {this.props.maker === true  ? (
-          <Link to="/item">My Items</Link>
+          <Link className='link' to="/item">My Items</Link>
         ) : (
           ''
         )}
@@ -44,9 +44,9 @@ export default class Sitebar extends React.Component <NavProps,{}>{
 
       <NavbarBrand>
         {localStorage.getItem("token") ? (
-          <Link to="/logout">Logout</Link>
+          <Link className='link' to="/logout">Logout</Link>
         ) : (
-          <Link to="/auth">Login or Signup</Link>
+          <Link className='link' to="/auth">Login or Signup</Link>
         )}
       </NavbarBrand>
 
