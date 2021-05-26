@@ -127,11 +127,9 @@ export default class Home extends React.Component<HomeProps, HomeState> {
           )}
           <br />
           <br />
-          {this.state.contactInfo && this.state.contactInfo.length > 1 ? (
+        
             <Button onClick={this.deleteStoreName}>Delete Name</Button>
-          ) : (
-            ""
-          )}
+         
         </div>
       </div>
     );
