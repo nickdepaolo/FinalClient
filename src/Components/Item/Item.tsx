@@ -243,7 +243,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
                           </Button>
                           <br />
                           <br />
-                          <Button onClick={() =>this.deleteItems(itemContain.id)}>Delete</Button>
+                          <Button id='mapbutton' onClick={() =>this.deleteItems(itemContain.id)}>Delete</Button>
                         </div>
                       </div>
                     );
