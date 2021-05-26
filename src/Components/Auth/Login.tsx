@@ -13,7 +13,7 @@ type AuthState = {
   email: string;
   password: string;
   storeId: number
-  sessionToken: number
+  sessionToken: string
 };
 
 export default class Login extends React.Component<AuthProps, AuthState> {
@@ -43,17 +43,14 @@ export default class Login extends React.Component<AuthProps, AuthState> {
           this.props.updateId(data.user.id);
           console.log(data.user.maker);
           console.log(data.user.id);
-          
-          
           this.props.makerCheck(data.user.maker)
-          this.checkToken()
-          
+          setTimeout(() => this.checkToken, 1000)
         })
     }
   };
 
   checkToken() {
-    if(this.state.sessionToken > 1){
+    if(this.state.sessionToken.length > 1){
       this.getStore()
     }
   }

@@ -40,9 +40,7 @@ export default class Item extends React.Component<ItemProps, ItemState> {
     console.log(this.props);
     console.log(this.state);
     
-
-    
-    fetch(`${process.env.REACT_APP_API_SERVER_URL}/item/`, {
+    fetch(`${process.env.REACT_APP_API_SERVER_URL}/item`, {
       method: "POST",
       body: JSON.stringify({
         item: {
@@ -168,7 +166,10 @@ export default class Item extends React.Component<ItemProps, ItemState> {
         "Authorization": `Bearer ${this.props.sessionToken}`,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        
+        return res.json()})
       .then((data) => {
         console.log(data);
         this.setState({ itemContain: data });

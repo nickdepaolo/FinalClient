@@ -71,9 +71,8 @@ export default class Signup extends React.Component<AuthProps, AuthState> {
         console.log(this.props);
         console.log(this.state);
         localStorage.setItem("user", data.user.id);
-        setTimeout(() => {
-         this.storageFunction()
-          }, 1000)
+        this.storageFunction()
+         
         
       });
     }

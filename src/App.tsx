@@ -115,11 +115,11 @@ setupView = () => {
    : <StoreSetup sessionToken={this.state.sessionToken} userId={this.state.id}/>
 }
 
-componentDidMount() {
- if(localStorage.getItem('token')) {
-  this.setState({sessionToken: localStorage.getItem('token')})
- }
-}
+// componentDidMount() {
+//  if(localStorage.getItem('token')) {
+//   this.setState({sessionToken: localStorage.getItem('token')})
+//  }
+// }
 
   render() {
     return (
