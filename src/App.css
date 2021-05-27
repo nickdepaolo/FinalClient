@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   background-image:linear-gradient(rgba(0, 0, 0, 0.692), rgba(0,0,0,0) 4em),
-  url('../src/Components/Assets/2020-03-16-instrument-making-4-0-1.jpg');
+  url('https://assets.new.siemens.com/siemens/assets/api/uuid:1b9c647a-a2d7-47bb-b258-c3e1a64dac85/width:1024/2020-03-16-instrument-making-4-0-1.jpg');
   background-size: 100em;
   size: cover;
   height:max-content;
