@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, NavbarBrand} from "reactstrap";
 import { Link } from "react-router-dom";
-import Logo from './Assets/ludioLogo.png';
+import Logo from 'https://previews.123rf.com/images/eljanstock/eljanstock1811/eljanstock181115946/112445936-settings-vector-icon-isolated-on-transparent-background-settings-transparency-logo-concept.jpg';
 
 type NavProps = {
   maker: boolean
