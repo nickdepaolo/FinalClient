@@ -22,7 +22,7 @@ export default class Sitebar extends React.Component <NavProps,{}>{
     
       <Link to={'/'}>
       <NavbarBrand >
-        <img id='logo' href="https://previews.123rf.com/images/eljanstock/eljanstock1811/eljanstock181115946/112445936-settings-vector-icon-isolated-on-transparent-background-settings-transparency-logo-concept.jpg'
+        <img id='logo' src="https://previews.123rf.com/images/eljanstock/eljanstock1811/eljanstock181115946/112445936-settings-vector-icon-isolated-on-transparent-background-settings-transparency-logo-concept.jpg'
  alt="" />
       </NavbarBrand>
       </Link>
